@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.math.BigDecimal
 import java.util.*
@@ -25,16 +26,16 @@ class MainActivity : AppCompatActivity() {
 
         calcular.setOnClickListener() {
 
-            if (peso != null && altura != null){
+            if (tbxPeso.text.toString() != "" && tbxAltura.text.toString() != ""){
                 val imc:Float = peso.toString().toFloat() / (altura.toString().toFloat() * altura.toString().toFloat())
                 val intent = Intent(this,SecondActivity::class.java)
                 intent.putExtra(eXTRA_NUMBER,imc)
                 startActivity(intent)
-            }
-
-            if ((peso.toString() == null) && (altura.toString() == "")){
-                text.text = "Insira os dados"
-            }
+            }else this.showToast(message = "Preencha todos os campos!")
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
     }
 }
